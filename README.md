@@ -1,8 +1,8 @@
 # Quantum Error Correction Surface Code Simulator
 
-A modular quantum error correction (QEC) simulator for studying planar surface codes using Stim and PyMatching. The project provides tools for constructing surface-code circuits, generating detector error models (DEMs), performing Minimum Weight Perfect Matching (MWPM) decoding, and evaluating logical failure rates through Monte Carlo simulation.
+A modular quantum error correction (QEC) simulator for studying surface codes through multiple simulation backends. The project provides tools for constructing surface-code circuits, generating detector error models (DEMs), performing Minimum Weight Perfect Matching (MWPM) decoding, and evaluating logical failure rates through Monte Carlo simulation.
 
-The simulator is designed as a modular research platform that can be extended with alternative decoders, noise models, and future threshold studies.
+The simulator is designed as a research platform with interchangeable simulation backends, enabling comparison between educational Qiskit implementations, high-performance Stim simulations, and future physically accurate planar surface-code implementations.
 
 ---
 
@@ -10,14 +10,14 @@ The simulator is designed as a modular research platform that can be extended wi
 
 - Configurable odd code distances (`d = 3, 5, 7, ...`)
 - Multi-round syndrome extraction
-- Stim-based circuit generation
-- Detector Error Model (DEM) generation
-- PyMatching MWPM decoder
+- Stim-based detector error model generation
+- PyMatching MWPM decoding
+- Reference NetworkX decoder
 - Depolarising and readout noise models
 - X- and Z-memory experiments
 - Logical failure-rate simulations
-- Distance-scaling experiments
-- Modular architecture with comprehensive unit tests
+- Modular backend architecture
+- Comprehensive unit test suite
 
 ---
 
@@ -25,94 +25,108 @@ The simulator is designed as a modular research platform that can be extended wi
 
 ```text
 src/qec/
-├── geometry.py
-├── stim_backend.py
-├── simulation.py
-├── visualization.py
-├── decoders/
+├── backends/
 │   ├── base.py
+│   ├── geometry.py
+│   ├── qiskit/
+│   │   ├── backend.py
+│   │   ├── circuit.py
+│   │   ├── engine.py
+│   │   ├── noise.py
+│   │   └── syndrome.py
+│   ├── stim/
+│   │   ├── backend.py
+│   │   ├── simulation.py
+│   │   └── surface_code.py
+│   └── planar/
+├── decoders/
 │   ├── mwpm.py
 │   └── networkx.py
-└── legacy/
-    ├── circuit.py
-    ├── noise.py
-    ├── simulation.py
-    └── syndrome.py
+└── visualization.py
 
 experiments/
-├── compare_decoders.py
-└── logical_failure_stim.py
-
 results/
-├── comparison/
-└── logical_failure/
-    ├── X/
-    └── Z/
-
 tests/
-├── test_geometry.py
-├── test_stim_backend.py
-├── test_simulation.py
-├── decoders/
-│   ├── test_mwpm.py
-│   └── test_networkx.py
-└── legacy/
-    ├── test_circuit.py
-    ├── test_simulation.py
-    └── test_syndrome.py
-
 notebooks/
-└── demo.ipynb
 ```
 
-### Legacy Implementation
+---
 
-The `legacy/` package contains the original **Qiskit**-based implementation of the simulator, including circuit construction, syndrome extraction, noise modelling, simulation, and the reference NetworkX decoder. It is retained for comparison, regression testing, and historical reference.
+## Backends
 
-Active development is focused on the **Stim**-based simulation pipeline, which provides detector error model (DEM) generation, PyMatching decoding, and serves as the foundation for future planar surface-code geometry and threshold studies.
+### Stim Backend
+
+The Stim backend provides a high-performance simulation pipeline based on:
+
+- Stim circuit generation
+- Detector Error Model (DEM) construction
+- PyMatching MWPM decoding
+- Monte Carlo logical-memory simulations
+
+This backend is intended for large-scale simulation and threshold experiments.
+
+### Qiskit Backend
+
+The Qiskit backend provides an educational reference implementation based on:
+
+- Explicit syndrome-extraction circuits
+- Aer simulation
+- Reference NetworkX MWPM decoder
+
+Although slower than the Stim implementation, it provides a transparent implementation useful for learning and algorithmic comparison.
+
+### Planar Backend (In Development)
+
+The next major milestone is implementing a physically accurate unrotated planar surface-code backend with:
+
+- Rough and smooth boundaries
+- Boundary stabilizers
+- Geometry-derived logical operators
+- Canonical planar lattice construction
 
 ---
 
 ## Example Experiment
 
-Run the logical memory experiment:
+Run the Stim logical-memory experiment:
 
 ```bash
 python experiments/logical_failure_stim.py
 ```
 
-This performs Monte Carlo simulations for both **X** and **Z** memory bases across multiple code distances and produces logical failure-rate and distance-scaling plots.
-
----
-
-## Example Result
-
-### Logical Failure Rate (X Memory)
-
-![Logical Failure](results/logical_failure/X/distance_scaling.png)
-
-### Logical Failure Rate (Z Memory)
-
-![Logical Failure](results/logical_failure/Z/distance_scaling.png)
+The experiment estimates logical failure rates for X- and Z-memory experiments over multiple code distances.
 
 ---
 
 ## Current Status
 
-The complete **Stim → Detector Error Model (DEM) → PyMatching** decoding pipeline is operational. The current implementation uses a simplified checkerboard stabilizer layout rather than the full planar surface-code geometry. Consequently, the simulator does not yet reproduce the expected reduction in logical error rate with increasing code distance. 
+Implemented:
 
-The next development milestone is implementing physically accurate planar surface-code geometry with rough and smooth boundaries, boundary stabilizers, and geometry-derived logical operators.
+- Qiskit backend
+- Stim backend
+- Backend abstraction layer
+- PyMatching decoder
+- NetworkX reference decoder
+- Detector Error Model generation
+- Monte Carlo logical-memory simulations
+- Comprehensive automated tests
+
+Currently under development:
+
+- Canonical planar surface-code geometry
+- Boundary stabilizers
+- Threshold analysis
 
 ---
 
 ## Future Work
 
-- Physically accurate planar surface-code geometry
-- Boundary stabilizers
-- Geometry-derived logical operators
-- Threshold analysis
-- Alternative decoder benchmarking
-- GitHub Actions CI
+- Complete planar surface-code backend
+- Threshold estimation
+- Decoder benchmarking
+- Additional noise models
+- GitHub Actions CI/CD
+- Documentation improvements
 
 ---
 
@@ -128,14 +142,14 @@ pytest
 
 ## Requirements
 
-- Python 3.10+
+- Python 3.12+
 - Stim
 - PyMatching
 - NumPy
 - NetworkX
 - Matplotlib
 - Pytest
-- Qiskit (legacy simulation pipeline)
+- Qiskit
 
 Install dependencies:
 
