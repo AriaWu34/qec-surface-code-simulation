@@ -1,16 +1,8 @@
 """
-Legacy simulation utilities based on the original
-Qiskit implementation.
+Execution engine for the legacy Qiskit backend.
 
-This module provides Monte Carlo routines for
-estimating logical failure rates using the
-reference Qiskit circuit simulator together with
-the NetworkX-based Minimum Weight Perfect Matching
-(MWPM) decoder.
-
-The implementation is retained for historical
-reference and comparison with the current
-Stim + PyMatching simulation pipeline.
+Provides Monte Carlo simulation routines based on
+Qiskit Aer and the reference NetworkX decoder.
 """
 
 import numpy as np

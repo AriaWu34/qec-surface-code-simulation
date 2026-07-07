@@ -1,12 +1,12 @@
 """
 Simulation utilities for Stim-based surface-code experiments.
 
-Provides Monte Carlo routines for estimating logical failure
-rates using Stim detector sampling and PyMatching decoding.
+This module provides backwards-compatible wrappers around
+the Stim backend. New code should instantiate `StimBackend`
+directly.
 """
 
-from qec.decoders import MWPMDecoder
-from qec.backends.stim.stim_backend import SurfaceCodeStimBackend
+from qec.backends.stim import StimBackend
 
 
 def logical_failure_rate_stim(
@@ -18,44 +18,19 @@ def logical_failure_rate_stim(
     memory_basis: str = "Z",
 ) -> float:
     """
-    Estimate logical failure rate using
-    Stim detector sampling and PyMatching.
+    Estimate the logical failure rate using the Stim backend.
+
+    Notes
+    -----
+    This function is retained for backwards compatibility.
+    New code should use `StimBackend.logical_failure_rate()`.
     """
 
-    backend = SurfaceCodeStimBackend(
+    return StimBackend().logical_failure_rate(
         distance=distance,
         rounds=rounds,
+        shots=shots,
         depolarizing_error=depolarizing_error,
         readout_error=readout_error,
         memory_basis=memory_basis,
     )
-
-    decoder = MWPMDecoder(
-        backend="pymatching",
-        dem=backend.detector_error_model(),
-    )
-
-    dets, obs = (
-        backend
-        .sample_detectors_and_observables(
-            shots=shots,
-        )
-    )
-
-    failures = 0
-
-    for det, actual in zip(
-        dets,
-        obs,
-    ):
-        predicted = (
-            decoder
-            .decode_detection_events(det)
-        )
-
-        if not (
-            predicted == actual
-        ).all():
-            failures += 1
-
-    return failures / shots

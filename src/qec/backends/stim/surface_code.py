@@ -27,7 +27,7 @@ class StabilizerMeasurement:
     stabilizer_idx: int
     record_idx: int
 
-class SurfaceCodeStimBackend:
+class StimSurfaceCode:
     """
     Stim implementation of the planar surface code.
     """
