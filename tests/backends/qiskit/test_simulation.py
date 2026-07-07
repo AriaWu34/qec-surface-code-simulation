@@ -1,4 +1,4 @@
-from qec.legacy.simulation import logical_failure_rates_single 
+from qec.backends.qiskit.simulation import logical_failure_rates_single 
 
 def test_single_round_simulation_runs():
     fx, fz = logical_failure_rates_single(

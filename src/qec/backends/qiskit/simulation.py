@@ -18,8 +18,8 @@ import numpy as np
 from qiskit import transpile
 from qiskit_aer import AerSimulator
 
-from qec.legacy.circuit import k_rounds_surface_code
-from qec.legacy.noise import depol_noise_model
+from qec.backends.qiskit.circuit import k_rounds_surface_code
+from qec.backends.qiskit.noise import depol_noise_model
 
 from qec.decoders.networkx import (
     decode_one_shot,

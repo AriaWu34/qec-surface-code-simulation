@@ -24,7 +24,7 @@ from qec.geometry import (
     generate_stabilizer_layout,
 )
 
-from qec.legacy.syndrome import (
+from qec.backends.qiskit.syndrome import (
     split_into_rounds,
     parse_round_bits,
     defects_from_bits,
