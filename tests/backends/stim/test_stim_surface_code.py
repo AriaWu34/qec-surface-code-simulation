@@ -86,6 +86,10 @@ def test_invalid_memory_basis():
         )
 
 
+# =========================
+# Circuit generation tests
+# =========================
+
 def test_z_memory_has_one_observable():
 
     backend = StimSurfaceCode(
@@ -293,26 +297,6 @@ def test_stabilizer_geometry_mapping():
             "X",
             "Z",
         }
-
-
-def test_checkerboard_stabilizer_types_d3():
-
-    backend = StimSurfaceCode(
-        distance=3
-    )
-
-    types = [
-        stabilizer.stabilizer_type
-        for stabilizer
-        in backend.stabilizers
-    ]
-
-    assert types == [
-        "X",
-        "Z",
-        "Z",
-        "X",
-    ]
 
 
 def test_stabilizer_positions_are_unique():

@@ -1,5 +1,5 @@
 import pytest
-from qec.backends.stim.geometry import (
+from qec.backends.geometry import (
     d_idx,
     manhattan,
     code_sizes,

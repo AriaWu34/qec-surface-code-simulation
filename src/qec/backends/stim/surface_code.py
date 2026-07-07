@@ -9,7 +9,7 @@ from dataclasses import dataclass
 
 import stim
 
-from qec.backends.stim.geometry import (
+from qec.backends.geometry import (
     d_idx,
     code_sizes,
     generate_stabilizer_layout,

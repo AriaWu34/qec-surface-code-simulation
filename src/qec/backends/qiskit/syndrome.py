@@ -6,7 +6,7 @@ Converts stabilizer measurement outcomes into syndrome defects for decoding.
 
 import numpy as np
 
-from qec.backends.stim.geometry import code_sizes
+from qec.backends.geometry import code_sizes
 
 
 def split_into_rounds(
