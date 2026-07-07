@@ -6,7 +6,7 @@ rates using Stim detector sampling and PyMatching decoding.
 """
 
 from qec.decoders import MWPMDecoder
-from qec.stim_backend import SurfaceCodeStimBackend
+from qec.backends.stim.stim_backend import SurfaceCodeStimBackend
 
 
 def logical_failure_rate_stim(

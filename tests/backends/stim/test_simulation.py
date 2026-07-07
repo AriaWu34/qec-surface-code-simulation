@@ -1,4 +1,4 @@
-from qec.simulation import logical_failure_rate_stim
+from qec.backends.stim.simulation import logical_failure_rate_stim
 
 
 def test_logical_failure_rate_stim_runs():

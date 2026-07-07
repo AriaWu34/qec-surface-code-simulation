@@ -1,6 +1,6 @@
 import pytest
 
-from qec.stim_backend import SurfaceCodeStimBackend
+from qec.backends.stim.stim_backend import SurfaceCodeStimBackend
 
 
 def expected_detector_count(

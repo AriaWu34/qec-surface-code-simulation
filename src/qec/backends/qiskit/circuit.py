@@ -3,7 +3,7 @@ Circuit construction utilities for surface-code simulations.
 """
 
 from qiskit import QuantumRegister, ClassicalRegister, QuantumCircuit
-from qec.geometry import (
+from qec.backends.stim.geometry import (
     d_idx,
     code_sizes,
     ancilla_offsets,

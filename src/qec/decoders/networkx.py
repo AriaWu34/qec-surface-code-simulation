@@ -17,7 +17,7 @@ and for comparison with the Stim + PyMatching decoder.
 
 import networkx as nx
 
-from qec.geometry import (
+from qec.backends.stim.geometry import (
     manhattan,
     code_boundaries,
     code_sizes,

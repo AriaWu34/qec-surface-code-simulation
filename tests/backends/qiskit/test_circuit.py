@@ -3,7 +3,7 @@ from qec.backends.qiskit.circuit import (
     k_rounds_surface_code,
 )
 
-from qec.geometry import code_sizes
+from qec.backends.stim.geometry import code_sizes
 
 
 def test_one_round_surface_code_d3():
