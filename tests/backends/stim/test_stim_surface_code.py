@@ -1,6 +1,6 @@
 import pytest
 
-from qec.backends.stim.surface_code import StimSurfaceCode
+from qec.backends.stim.checkerboard_surface_code import StimSurfaceCode
 
 
 def expected_detector_count(

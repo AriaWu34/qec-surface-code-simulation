@@ -9,7 +9,7 @@ PyMatching for Minimum Weight Perfect Matching
 """
 
 from qec.backends.base import Backend
-from qec.backends.stim.surface_code import StimSurfaceCode
+from qec.backends.stim.rotated_surface_code import RotatedSurfaceCode
 from qec.decoders import MWPMDecoder
 
 
@@ -33,7 +33,7 @@ class StimBackend(Backend):
         memory_basis: str = "Z",
     ) -> float:
 
-        code = StimSurfaceCode(
+        code = RotatedSurfaceCode(
             distance=distance,
             rounds=rounds,
             depolarizing_error=depolarizing_error,
