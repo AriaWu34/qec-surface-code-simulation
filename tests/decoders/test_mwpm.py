@@ -1,7 +1,7 @@
 import pytest
 
 from qec.decoders import MWPMDecoder
-from qec.backends.stim.surface_code import StimSurfaceCode
+from qec.backends.stim.checkerboard_surface_code import StimSurfaceCode
 
 
 def test_invalid_backend():

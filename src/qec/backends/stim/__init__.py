@@ -1,5 +1,5 @@
 from .backend import StimBackend
-from .surface_code import StimSurfaceCode
+from .checkerboard_surface_code import StimSurfaceCode
 
 __all__ = [
     "StimBackend",

@@ -7,7 +7,10 @@ surface-code implementation.
 """
 
 from qec.backends.base import Backend
-from qec.backends.qiskit import engine
+from .engine import (
+    logical_failure_rates_single,
+    logical_failure_rates_spacetime,
+)
 
 
 class QiskitBackend(Backend):
@@ -21,7 +24,7 @@ class QiskitBackend(Backend):
         return "qiskit"
 
     def logical_failure_rate(self, *args, **kwargs):
-        return engine.logical_failure_rates_single(
+        return logical_failure_rates_single(
             *args,
             **kwargs,
         )
@@ -31,7 +34,7 @@ class QiskitBackend(Backend):
         *args,
         **kwargs,
     ):
-        return engine.logical_failure_rates_spacetime(
+        return logical_failure_rates_spacetime(
             *args,
             **kwargs,
         )

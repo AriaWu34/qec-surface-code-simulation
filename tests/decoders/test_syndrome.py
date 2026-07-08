@@ -1,4 +1,4 @@
-from qec.backends.qiskit.syndrome import (
+from qec.decoders.syndrome import (
     split_into_rounds,
     parse_round_bits,
     defects_from_bits,
