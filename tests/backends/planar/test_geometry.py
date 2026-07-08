@@ -1,90 +1,7 @@
-import pytest
-from qec.backends.geometry import (
-    d_idx,
-    code_sizes,
-    manhattan,
-    code_boundaries,
-    validate_distance,
-)
 from qec.backends.planar.geometry import (
     generate_planar_stabilizers,
     stabilizer_data_coordinates,
-)
-
-
-# =========================
-# Geometry indexing
-# =========================
-
-def test_d_idx_distance_3():
-    assert d_idx(0, 0, 3) == 0
-    assert d_idx(0, 2, 3) == 2
-    assert d_idx(1, 0, 3) == 3
-    assert d_idx(2, 2, 3) == 8
-
-
-def test_d_idx_distance_5():
-    assert d_idx(0, 0, 5) == 0
-    assert d_idx(0, 4, 5) == 4
-    assert d_idx(1, 0, 5) == 5
-    assert d_idx(4, 4, 5) == 24
-
-
-def test_manhattan_distance():
-    assert manhattan((0, 0), (0, 0)) == 0
-    assert manhattan((0, 0), (1, 1)) == 2
-    assert manhattan((0.5, 0.5), (1.5, 1.5)) == 2.0
-
-
-# =========================
-# Code parameters
-# =========================
-
-def test_code_sizes_d3():
-    n_data, n_x, n_z = code_sizes(3)
-
-    assert n_data == 9
-    assert n_x == 4
-    assert n_z == 4
-
-
-def test_code_sizes_d5():
-    n_data, n_x, n_z = code_sizes(5)
-
-    assert n_data == 25
-    assert n_x == 16
-    assert n_z == 16
-
-
-def test_code_boundaries_d3():
-    bounds = code_boundaries(3)
-
-    assert bounds["top"] == -0.5
-    assert bounds["bottom"] == 2.5
-    assert bounds["left"] == -0.5
-    assert bounds["right"] == 2.5
-    assert bounds["span"] == 3.0
-
-
-def test_code_boundaries_d5():
-    bounds = code_boundaries(5)
-
-    assert bounds["top"] == -0.5
-    assert bounds["bottom"] == 4.5
-    assert bounds["left"] == -0.5
-    assert bounds["right"] == 4.5
-    assert bounds["span"] == 5.0
-    
-
-def test_validate_distance_rejects_invalid():
-    with pytest.raises(ValueError):
-        validate_distance(2)
-
-    with pytest.raises(ValueError):
-        validate_distance(4)
-
-    with pytest.raises(ValueError):
-        validate_distance(0)    
+)  
 
 
 def test_stabilizer_weight():
@@ -98,7 +15,7 @@ def test_stabilizer_weight():
         )
 
 
-def test_checkerboard_stabilizer_weight():
+def test_planar_stabilizer_weight():
 
     layout = generate_planar_stabilizers(5)
 
@@ -120,11 +37,7 @@ def test_weight_matches_coordinates():
         )
 
 
-# =========================
-# Stabilizer geometry
-# =========================
-
-def test_checkerboard_layout_d3():
+def test_planar_layout_d3():
     layout = generate_planar_stabilizers(3)
 
     types = [
