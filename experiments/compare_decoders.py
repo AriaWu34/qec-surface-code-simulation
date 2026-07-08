@@ -5,7 +5,7 @@ Usage:
     python experiments/compare_decoders.py
 """
 
-from qec.simulation import compare_single_vs_spacetime
+from qec.backends.qiskit.engine import compare_single_vs_spacetime
 from qec.visualization import plot_decoder_comparison
 
 import numpy as np
