@@ -30,9 +30,13 @@ class StabilizerMeasurement:
     stabilizer_idx: int
     record_idx: int
 
-class StimSurfaceCode:
+class PlanarSurfaceCode:
     """
-    Stim implementation of the planar surface code.
+    Unrotated planar surface-code implementation.
+
+    Provides a first-principles implementation of the
+    planar surface code using explicit stabilizer
+    construction and detector generation.
     """
 
     def __init__(
@@ -71,7 +75,7 @@ class StimSurfaceCode:
         self.depolarizing_error = depolarizing_error
         self.readout_error = readout_error
 
-        self.stabilizers = generate_planar_stabilizers(distance)
+        self.stabilizer_layout = generate_planar_stabilizers(distance)
 
         self.n_data, self.n_x, self.n_z = code_sizes(distance)
 
@@ -110,11 +114,18 @@ class StimSurfaceCode:
 
     @property
     def n_stabilizers(self):
-        return len(self.stabilizers)
+        return len(self.stabilizer_layout)
     
     @property
     def stabilizer_ancilla_start(self) -> int:
         return self.n_data
+    
+    @property
+    def stabilizer_layout(self):
+        """
+        Return the stabilizer geometry.
+        """
+        return self.stabilizer_layout
     
 
     def reset_measurements(self) -> None:
@@ -286,7 +297,7 @@ class StimSurfaceCode:
             self.ancilla_indices,
         )
 
-        for stabilizer in self.stabilizers:
+        for stabilizer in self.stabilizer_layout:
 
             ancilla = (
                 self.stabilizer_ancilla_start
@@ -354,7 +365,7 @@ class StimSurfaceCode:
                 stabilizer_idx,
             )
 
-            stabilizer = self.stabilizers[
+            stabilizer = self.stabilizer_layout[
                 stabilizer_idx
             ]
 
@@ -416,7 +427,7 @@ class StimSurfaceCode:
             self.n_stabilizers
         ):
 
-            stabilizer = self.stabilizers[
+            stabilizer = self.stabilizer_layout[
                 stabilizer_idx
             ]
 
