@@ -12,8 +12,11 @@ import stim
 from qec.backends.geometry import (
     d_idx,
     code_sizes,
-    generate_stabilizer_layout,
     validate_distance,
+)
+
+from qec.backends.planar.geometry import (
+    generate_planar_stabilizers,
 )
 
 
@@ -68,7 +71,7 @@ class StimSurfaceCode:
         self.depolarizing_error = depolarizing_error
         self.readout_error = readout_error
 
-        self.stabilizers = generate_stabilizer_layout(distance)
+        self.stabilizers = generate_planar_stabilizers(distance)
 
         self.n_data, self.n_x, self.n_z = code_sizes(distance)
 

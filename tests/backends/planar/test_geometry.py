@@ -1,12 +1,14 @@
 import pytest
 from qec.backends.geometry import (
     d_idx,
-    manhattan,
     code_sizes,
-    generate_stabilizer_layout,
-    neighbouring_data_coordinates,
+    manhattan,
     code_boundaries,
     validate_distance,
+)
+from qec.backends.planar.geometry import (
+    generate_planar_stabilizers,
+    stabilizer_data_coordinates,
 )
 
 
@@ -87,7 +89,7 @@ def test_validate_distance_rejects_invalid():
 
 def test_stabilizer_weight():
 
-    layout = generate_stabilizer_layout(5)
+    layout = generate_planar_stabilizers(5)
 
     for stabilizer in layout:
 
@@ -98,7 +100,7 @@ def test_stabilizer_weight():
 
 def test_checkerboard_stabilizer_weight():
 
-    layout = generate_stabilizer_layout(5)
+    layout = generate_planar_stabilizers(5)
 
     assert all(
         stabilizer.weight == 4
@@ -108,7 +110,7 @@ def test_checkerboard_stabilizer_weight():
 
 def test_weight_matches_coordinates():
 
-    layout = generate_stabilizer_layout(7)
+    layout = generate_planar_stabilizers(7)
 
     for stabilizer in layout:
 
@@ -123,7 +125,7 @@ def test_weight_matches_coordinates():
 # =========================
 
 def test_checkerboard_layout_d3():
-    layout = generate_stabilizer_layout(3)
+    layout = generate_planar_stabilizers(3)
 
     types = [
         s.stabilizer_type
@@ -140,7 +142,7 @@ def test_checkerboard_layout_d3():
 
 def test_stabilizer_has_data_qubits():
 
-    layout = generate_stabilizer_layout(3)
+    layout = generate_planar_stabilizers(3)
 
     assert layout[0].data_qubits == (
         0,
@@ -152,7 +154,7 @@ def test_stabilizer_has_data_qubits():
 
 def test_stabilizer_has_data_coordinates():
 
-    layout = generate_stabilizer_layout(3)
+    layout = generate_planar_stabilizers(3)
 
     assert (
         layout[0].data_coordinates
@@ -168,7 +170,7 @@ def test_stabilizer_has_data_coordinates():
 
 def test_stabilizer_has_ancilla_position():
 
-    layout = generate_stabilizer_layout(3)
+    layout = generate_planar_stabilizers(3)
 
     assert (
         layout[0].ancilla_position
@@ -179,14 +181,14 @@ def test_stabilizer_has_ancilla_position():
 
 def test_stabilizer_not_boundary():
 
-    layout = generate_stabilizer_layout(3)
+    layout = generate_planar_stabilizers(3)
 
     assert layout[0].boundary is False
 
 
 def test_stabilizer_geometry_consistency():
 
-    layout = generate_stabilizer_layout(5)
+    layout = generate_planar_stabilizers(5)
 
     for stabilizer in layout:
 
@@ -206,7 +208,7 @@ def test_stabilizer_geometry_consistency():
 
 def test_neighbouring_data_coordinates_d3():
 
-    coords = neighbouring_data_coordinates(
+    coords = stabilizer_data_coordinates(
         0,
         0,
         3,
@@ -222,7 +224,7 @@ def test_neighbouring_data_coordinates_d3():
 
 def test_all_neighbours_are_valid():
 
-    layout = generate_stabilizer_layout(7)
+    layout = generate_planar_stabilizers(7)
 
     for stabilizer in layout:
 
