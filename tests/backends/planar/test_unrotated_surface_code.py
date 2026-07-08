@@ -1,10 +1,10 @@
 import pytest
 
-from qec.backends.planar.unrotated_surface_code import StimSurfaceCode
+from qec.backends.planar.unrotated_surface_code import PlanarSurfaceCode
 
 
 def expected_detector_count(
-    backend: StimSurfaceCode,
+    backend: PlanarSurfaceCode,
 ) -> int:
 
     num_memory_stabilizers = sum(
@@ -25,7 +25,7 @@ def expected_detector_count(
 # =========================
 
 def test_build_circuit_d3():
-    backend = StimSurfaceCode(
+    backend = PlanarSurfaceCode(
         distance=3,
         rounds=1,
     )
@@ -36,7 +36,7 @@ def test_build_circuit_d3():
 
 
 def test_build_circuit_d5():
-    backend = StimSurfaceCode(
+    backend = PlanarSurfaceCode(
         distance=5,
         rounds=1,
     )
@@ -47,7 +47,7 @@ def test_build_circuit_d5():
 
 
 def test_multiple_rounds_build():
-    backend = StimSurfaceCode(
+    backend = PlanarSurfaceCode(
         distance=3,
         rounds=2,
     )
@@ -63,12 +63,12 @@ def test_multiple_rounds_build():
 
 def test_invalid_distance():
     with pytest.raises(ValueError):
-        StimSurfaceCode(distance=4)
+        PlanarSurfaceCode(distance=4)
 
 
 def test_invalid_rounds():
     with pytest.raises(ValueError):
-        StimSurfaceCode(
+        PlanarSurfaceCode(
             distance=3,
             rounds=0,
         )
@@ -81,7 +81,7 @@ def test_invalid_rounds():
 def test_invalid_memory_basis():
 
     with pytest.raises(ValueError):
-        StimSurfaceCode(
+        PlanarSurfaceCode(
             memory_basis="bad"
         )
 
@@ -92,7 +92,7 @@ def test_invalid_memory_basis():
 
 def test_z_memory_has_one_observable():
 
-    backend = StimSurfaceCode(
+    backend = PlanarSurfaceCode(
         distance=3,
         memory_basis="Z",
     )
@@ -108,7 +108,7 @@ def test_z_memory_has_one_observable():
 
 def test_x_memory_has_one_observable():
 
-    backend = StimSurfaceCode(
+    backend = PlanarSurfaceCode(
         distance=3,
         memory_basis="X",
     )
@@ -124,7 +124,7 @@ def test_x_memory_has_one_observable():
 
 def test_x_memory_sampling_shape():
 
-    backend = StimSurfaceCode(
+    backend = PlanarSurfaceCode(
         distance=3,
         memory_basis="X",
     )
@@ -143,7 +143,7 @@ def test_x_memory_sampling_shape():
 
 def test_x_memory_adds_final_detectors():
 
-    backend = StimSurfaceCode(
+    backend = PlanarSurfaceCode(
         distance=3,
         rounds=5,
         memory_basis="X",
@@ -171,7 +171,7 @@ def test_x_memory_adds_final_detectors():
 
 def test_x_memory_dem_builds():
 
-    backend = StimSurfaceCode(
+    backend = PlanarSurfaceCode(
         distance=3,
         rounds=5,
         memory_basis="X",
@@ -187,7 +187,7 @@ def test_x_memory_dem_builds():
 # =========================
 
 def test_detector_count_d3_rounds_2():
-    backend = StimSurfaceCode(
+    backend = PlanarSurfaceCode(
         distance=3,
         rounds=2,
     )
@@ -207,7 +207,7 @@ def test_detector_count_d3_rounds_2():
 
 def test_final_detector_layer_present():
 
-    backend = StimSurfaceCode(
+    backend = PlanarSurfaceCode(
         distance=3,
         rounds=5,
     )
@@ -231,7 +231,7 @@ def test_final_detector_layer_present():
 
 def test_first_stabilizer_geometry():
 
-    backend = StimSurfaceCode(
+    backend = PlanarSurfaceCode(
         distance=3
     )
 
@@ -263,7 +263,7 @@ def test_first_stabilizer_geometry():
 
 def test_second_stabilizer_geometry():
 
-    backend = StimSurfaceCode(
+    backend = PlanarSurfaceCode(
         distance=3
     )
 
@@ -279,7 +279,7 @@ def test_second_stabilizer_geometry():
 
 def test_stabilizer_geometry_mapping():
 
-    backend = StimSurfaceCode(
+    backend = PlanarSurfaceCode(
         distance=5
     )
 
@@ -301,7 +301,7 @@ def test_stabilizer_geometry_mapping():
 
 def test_stabilizer_positions_are_unique():
 
-    backend = StimSurfaceCode(
+    backend = PlanarSurfaceCode(
         distance=5
     )
 
@@ -317,7 +317,7 @@ def test_stabilizer_positions_are_unique():
 
 def test_stabilizer_indices_are_sequential():
 
-    backend = StimSurfaceCode(
+    backend = PlanarSurfaceCode(
         distance=5
     )
 
@@ -339,7 +339,7 @@ def test_stabilizer_indices_are_sequential():
 # =========================
 
 def test_logical_z_chain_length():
-    backend = StimSurfaceCode(
+    backend = PlanarSurfaceCode(
         distance=3
     )
 
@@ -349,7 +349,7 @@ def test_logical_z_chain_length():
 
 
 def test_logical_x_chain_length():
-    backend = StimSurfaceCode(
+    backend = PlanarSurfaceCode(
         distance=5
     )
 
@@ -359,7 +359,7 @@ def test_logical_x_chain_length():
 
 
 def test_final_data_measurements_recorded():
-    backend = StimSurfaceCode(
+    backend = PlanarSurfaceCode(
         distance=3
     )
 
@@ -374,7 +374,7 @@ def test_final_data_measurements_recorded():
 
 
 def test_logical_chains_use_valid_data_qubits():
-    backend = StimSurfaceCode(
+    backend = PlanarSurfaceCode(
         distance=3
     )
 
@@ -391,14 +391,14 @@ def test_logical_chains_use_valid_data_qubits():
 
 def test_invalid_depolarizing_error():
     with pytest.raises(ValueError):
-        StimSurfaceCode(
+        PlanarSurfaceCode(
             distance=3,
             depolarizing_error=-0.1,
         )
 
 
 def test_depolarizing_error_present():
-    backend = StimSurfaceCode(
+    backend = PlanarSurfaceCode(
         distance=3,
         depolarizing_error=0.01,
     )
@@ -410,14 +410,14 @@ def test_depolarizing_error_present():
 
 def test_invalid_readout_error():
     with pytest.raises(ValueError):
-        StimSurfaceCode(
+        PlanarSurfaceCode(
             distance=3,
             readout_error=-0.1,
         )
 
 
 def test_readout_error_present():
-    backend = StimSurfaceCode(
+    backend = PlanarSurfaceCode(
         distance=3,
         readout_error=0.01,
     )
@@ -432,7 +432,7 @@ def test_readout_error_present():
 # =====================
 
 def test_detector_sampling_shape():
-    backend = StimSurfaceCode(
+    backend = PlanarSurfaceCode(
         distance=3,
         rounds=5,
         depolarizing_error=0.01,
@@ -451,7 +451,7 @@ def test_detector_sampling_shape():
 
 
 def test_detector_and_observable_sampling_shapes():
-    backend = StimSurfaceCode(
+    backend = PlanarSurfaceCode(
         distance=3,
         rounds=5,
         depolarizing_error=0.01,

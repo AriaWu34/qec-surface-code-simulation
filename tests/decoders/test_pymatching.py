@@ -1,7 +1,7 @@
 import pytest
 
 from qec.decoders import MWPMDecoder
-from qec.backends.planar.unrotated_surface_code import StimSurfaceCode
+from qec.backends.planar.unrotated_surface_code import PlanarSurfaceCode
 
 
 def test_invalid_backend():
@@ -23,7 +23,7 @@ def test_pymatching_requires_dem():
 
 
 def test_pymatching_decoder_builds():
-    backend = StimSurfaceCode(
+    backend = PlanarSurfaceCode(
         distance=3,
         rounds=5,
         depolarizing_error=0.01,
@@ -38,7 +38,7 @@ def test_pymatching_decoder_builds():
 
 
 def test_pymatching_decode_runs():
-    backend = StimSurfaceCode(
+    backend = PlanarSurfaceCode(
         distance=3,
         rounds=5,
         depolarizing_error=0.01,

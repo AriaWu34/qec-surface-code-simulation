@@ -75,7 +75,7 @@ class PlanarSurfaceCode:
         self.depolarizing_error = depolarizing_error
         self.readout_error = readout_error
 
-        self.stabilizer_layout = generate_planar_stabilizers(distance)
+        self._stabilizer_layout = generate_planar_stabilizers(distance)
 
         self.n_data, self.n_x, self.n_z = code_sizes(distance)
 
@@ -125,7 +125,15 @@ class PlanarSurfaceCode:
         """
         Return the stabilizer geometry.
         """
-        return self.stabilizer_layout
+        return self._stabilizer_layout
+    
+    @property
+    def stabilizers(self):
+        """
+        Backwards-compatible alias for the
+        stabilizer geometry.
+        """
+        return self._stabilizer_layout
     
 
     def reset_measurements(self) -> None:
