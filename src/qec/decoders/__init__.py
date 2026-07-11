@@ -2,7 +2,7 @@
 Decoder implementations.
 """
 
-from .pymatching import MWPMDecoder
+from .MWPM.pymatching import MWPMDecoder
 
 __all__ = [
     "MWPMDecoder",

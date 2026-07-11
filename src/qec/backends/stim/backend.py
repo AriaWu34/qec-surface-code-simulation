@@ -84,7 +84,7 @@ class StimBackend(Backend):
         )
 
         decoder = MWPMDecoder(
-            backend="pymatching",
+            implementation="pymatching",
             dem=code.detector_error_model(),
         )
 

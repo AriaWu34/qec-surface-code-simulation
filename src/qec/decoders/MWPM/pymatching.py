@@ -33,19 +33,19 @@ class MWPMDecoder(Decoder):
 
     def __init__(
         self,
-        backend: str = "networkx",
+        implementation: str = "networkx",
         dem=None,
     ):
-        self.backend = backend
+        self.implementation = implementation
 
         self.matching = None
 
-        if backend == "pymatching":
+        if implementation == "pymatching":
 
             if dem is None:
                 raise ValueError(
                     "DEM required for "
-                    "PyMatching backend."
+                    "PyMatching implementation."
                 )
 
             self.matching = (
@@ -55,10 +55,10 @@ class MWPMDecoder(Decoder):
                 )
             )
 
-        elif backend != "networkx":
+        elif implementation != "networkx":
             raise ValueError(
-                f"Unknown backend: "
-                f"{backend}"
+                f"Unknown implementation: "
+                f"{implementation}"
             )
 
 
@@ -92,12 +92,12 @@ class MWPMDecoder(Decoder):
     ):
         """
         Decode detector events using
-        the PyMatching backend.
+        the PyMatching implementation.
         """
 
-        if self.backend != "pymatching":
+        if self.implementation != "pymatching":
             raise ValueError(
-                "PyMatching backend required."
+                "PyMatching implementation required."
             )
 
         return self.matching.decode(

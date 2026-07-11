@@ -4,12 +4,12 @@ from qec.decoders import MWPMDecoder
 from qec.backends.stim.rotated import RotatedSurfaceCode
 
 
-def test_invalid_backend():
+def test_invalid_implementation():
 
     with pytest.raises(ValueError):
 
         MWPMDecoder(
-            backend="bad",
+            implementation="bad",
         )
 
 
@@ -22,7 +22,7 @@ def test_pymatching_decoder_builds():
     )
 
     decoder = MWPMDecoder(
-        backend="pymatching",
+        implementation="pymatching",
         dem=code.detector_error_model(),
     )
 
@@ -42,7 +42,7 @@ def test_pymatching_decode_runs():
     )
 
     decoder = MWPMDecoder(
-        backend="pymatching",
+        implementation="pymatching",
         dem=code.detector_error_model(),
     )
 

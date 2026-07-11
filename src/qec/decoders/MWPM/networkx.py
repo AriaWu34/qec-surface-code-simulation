@@ -1,18 +1,10 @@
 """
-Reference NetworkX implementation of the Minimum Weight
-Perfect Matching (MWPM) decoder.
+MWPM implementation for the Qiskit backend.
 
-This module contains the original graph-based decoding
-algorithms used by the Qiskit simulation pipeline,
-including:
-
-- Single-round MWPM decoding
-- Space-time MWPM decoding
-- Boundary matching utilities
-- Logical failure heuristics
-
-The implementation is retained as a reference backend
-and for comparison with the Stim + PyMatching decoder.
+Unlike the Stim decoders, this module operates on
+Qiskit syndrome bitstrings and checkerboard geometry.
+It is therefore intentionally not derived from
+Decoder.
 """
 
 import networkx as nx

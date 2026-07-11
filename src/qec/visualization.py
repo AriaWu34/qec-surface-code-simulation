@@ -148,3 +148,60 @@ def plot_distance_scaling(
     save_figure(save_path)
 
     plt.show()
+
+
+def plot_comparison(
+    x,
+    y: dict[str, list[float]],
+    xlabel: str,
+    ylabel: str,
+    title: str,
+    save_path: str | Path,
+) -> None:
+    """
+    Plot comparison of multiple logical failure-rate curves.
+    """
+
+    save_path = Path(save_path)
+    save_path.parent.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
+
+    plt.figure(
+        figsize=(6, 4),
+    )
+
+    for label, values in y.items():
+
+        plt.plot(
+            x,
+            values,
+            marker="o",
+            linewidth=2,
+            label=label,
+        )
+
+    plt.xscale("log")
+    plt.yscale("log")
+
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
+
+    plt.title(title)
+
+    plt.grid(
+        which="both",
+        alpha=0.3,
+    )
+
+    plt.legend()
+
+    plt.tight_layout()
+
+    plt.savefig(
+        save_path,
+        dpi=300,
+    )
+
+    plt.close()
