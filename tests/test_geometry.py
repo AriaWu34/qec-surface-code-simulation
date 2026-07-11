@@ -1,12 +1,12 @@
-from qec.backends.planar.geometry import (
-    generate_planar_stabilizers,
+from qec.geometry import (
+    generate_qiskit_stabilizers,
     stabilizer_data_coordinates,
 )  
 
 
 def test_stabilizer_weight():
 
-    layout = generate_planar_stabilizers(5)
+    layout = generate_qiskit_stabilizers(5)
 
     for stabilizer in layout:
 
@@ -17,7 +17,7 @@ def test_stabilizer_weight():
 
 def test_planar_stabilizer_weight():
 
-    layout = generate_planar_stabilizers(5)
+    layout = generate_qiskit_stabilizers(5)
 
     assert all(
         stabilizer.weight == 4
@@ -27,7 +27,7 @@ def test_planar_stabilizer_weight():
 
 def test_weight_matches_coordinates():
 
-    layout = generate_planar_stabilizers(7)
+    layout = generate_qiskit_stabilizers(7)
 
     for stabilizer in layout:
 
@@ -38,7 +38,7 @@ def test_weight_matches_coordinates():
 
 
 def test_planar_layout_d3():
-    layout = generate_planar_stabilizers(3)
+    layout = generate_qiskit_stabilizers(3)
 
     types = [
         s.stabilizer_type
@@ -55,7 +55,7 @@ def test_planar_layout_d3():
 
 def test_stabilizer_has_data_qubits():
 
-    layout = generate_planar_stabilizers(3)
+    layout = generate_qiskit_stabilizers(3)
 
     assert layout[0].data_qubits == (
         0,
@@ -67,7 +67,7 @@ def test_stabilizer_has_data_qubits():
 
 def test_stabilizer_has_data_coordinates():
 
-    layout = generate_planar_stabilizers(3)
+    layout = generate_qiskit_stabilizers(3)
 
     assert (
         layout[0].data_coordinates
@@ -83,7 +83,7 @@ def test_stabilizer_has_data_coordinates():
 
 def test_stabilizer_has_ancilla_position():
 
-    layout = generate_planar_stabilizers(3)
+    layout = generate_qiskit_stabilizers(3)
 
     assert (
         layout[0].ancilla_position
@@ -94,14 +94,14 @@ def test_stabilizer_has_ancilla_position():
 
 def test_stabilizer_not_boundary():
 
-    layout = generate_planar_stabilizers(3)
+    layout = generate_qiskit_stabilizers(3)
 
     assert layout[0].boundary is False
 
 
 def test_stabilizer_geometry_consistency():
 
-    layout = generate_planar_stabilizers(5)
+    layout = generate_qiskit_stabilizers(5)
 
     for stabilizer in layout:
 
@@ -137,7 +137,7 @@ def test_neighbouring_data_coordinates_d3():
 
 def test_all_neighbours_are_valid():
 
-    layout = generate_planar_stabilizers(7)
+    layout = generate_qiskit_stabilizers(7)
 
     for stabilizer in layout:
 

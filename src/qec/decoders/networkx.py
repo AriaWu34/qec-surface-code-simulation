@@ -17,14 +17,11 @@ and for comparison with the Stim + PyMatching decoder.
 
 import networkx as nx
 
-from qec.backends.geometry import (
+from qec.geometry import (
     manhattan,
     code_boundaries,
     code_sizes,
-)
-
-from qec.backends.planar.geometry import (
-    generate_planar_stabilizers,
+    generate_qiskit_stabilizers,
 )
 
 from qec.decoders.syndrome import (
@@ -43,16 +40,11 @@ def generate_ancilla_positions(
 
     Returns ancilla coordinates derived from the
     stabilizer geometry.
-
-    TODO:
-    Remove once the legacy NetworkX decoder is
-    migrated to consume StabilizerGeometry
-    directly.
     """
 
     return [
         stabilizer.ancilla_position
-        for stabilizer in generate_planar_stabilizers(
+        for stabilizer in generate_qiskit_stabilizers(
             distance
         )
     ]

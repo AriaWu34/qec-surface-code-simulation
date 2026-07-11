@@ -1,14 +1,115 @@
 """
-Geometry definitions for the unrotated planar surface code.
+Geometry and indexing utilities for the surface code.
 
-This module defines the stabilizer lattice used by the
-Planar backend. The implementation will be extended with
-boundary stabilizers and canonical planar geometry.
+Shared by backends and decoders.
 """
 
-
+    
 from dataclasses import dataclass
-from qec.backends.geometry import d_idx
+
+
+# ======================================================
+# Indexing
+# ======================================================
+
+def d_idx(r: int, c: int, distance: int) -> int:
+    """
+    Convert a 2D data-qubit coordinate into a linear index.
+    """
+    return distance * r + c
+
+
+def code_sizes(distance: int):
+    """
+    Return the number of data, X-ancilla, and Z-ancilla qubits.
+    """
+    n_data = distance**2
+    n_x = (distance - 1) ** 2
+    n_z = (distance - 1) ** 2
+
+    return n_data, n_x, n_z
+
+
+def ancilla_offsets(distance: int):
+    """
+    Return the starting indices of X and Z ancillas.
+    """
+    n_data, n_x, _ = code_sizes(distance)
+
+    x_start = n_data
+    z_start = n_data + n_x
+
+    return x_start, z_start
+
+
+# ======================================================
+# Geometry
+# ======================================================
+
+def manhattan(p: tuple, q: tuple) -> float:
+    """
+    Manhattan distance between two coordinates.
+    """
+    return abs(p[0] - q[0]) + abs(p[1] - q[1])
+
+
+def code_boundaries(distance: int):
+    """
+    Return decoder boundary coordinates.
+    """
+    low = -0.5
+    high = distance - 0.5
+
+    return {
+        "top": low,
+        "bottom": high,
+        "left": low,
+        "right": high,
+        "span": float(distance),
+    }
+
+
+# ======================================================
+# Validation
+# ======================================================
+
+def validate_distance(distance: int):
+    """
+    Validate that the code distance is an
+    odd integer greater than or equal to 3.
+    """
+    if distance < 3 or distance % 2 == 0:
+        raise ValueError(
+            "Distance must be an odd integer >= 3."
+        )
+
+
+# ======================================================
+# Qiskit helpers
+# ======================================================
+
+def generate_plaquettes(distance: int):
+    """
+    Generate all 2×2 plaquettes used by the
+    legacy Qiskit circuit construction.
+
+    This helper is retained for compatibility with
+    the reference Qiskit backend.
+    """
+    plaqs = []
+
+    for r in range(distance - 1):
+        for c in range(distance - 1):
+            plaqs.append(
+                [
+                    (r, c),
+                    (r, c + 1),
+                    (r + 1, c),
+                    (r + 1, c + 1),
+                ]
+            )
+
+    return plaqs
 
 
 def valid_data_coordinate(
@@ -61,8 +162,7 @@ def stabilizer_data_coordinates(
 @dataclass(frozen=True)
 class StabilizerGeometry:
     """
-    Geometry describing a stabilizer in the
-    planar surface-code lattice.
+    Geometry describing a stabilizer in the lattice.
     """
 
     stabilizer_idx: int
@@ -88,12 +188,11 @@ class StabilizerGeometry:
         return len(self.data_qubits)
     
 
-def generate_planar_stabilizers(
+def generate_qiskit_stabilizers(
     distance: int,
 ) -> list[StabilizerGeometry]:
     """
-    Generate the stabilizer geometry for the
-    unrotated planar surface code.
+    Generate the stabilizer geometry.
 
     Returns
     -------

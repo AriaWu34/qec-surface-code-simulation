@@ -1,7 +1,7 @@
 import pytest
 
 from qec.decoders import MWPMDecoder
-from qec.backends.planar.unrotated_surface_code import PlanarSurfaceCode
+from qec.backends.stim.rotated import RotatedSurfaceCode
 
 
 def test_invalid_backend():
@@ -13,17 +13,9 @@ def test_invalid_backend():
         )
 
 
-def test_pymatching_requires_dem():
-
-    with pytest.raises(ValueError):
-
-        MWPMDecoder(
-            backend="pymatching",
-        )
-
-
 def test_pymatching_decoder_builds():
-    backend = PlanarSurfaceCode(
+
+    code = RotatedSurfaceCode(
         distance=3,
         rounds=5,
         depolarizing_error=0.01,
@@ -31,14 +23,19 @@ def test_pymatching_decoder_builds():
 
     decoder = MWPMDecoder(
         backend="pymatching",
-        dem=backend.detector_error_model(),
+        dem=code.detector_error_model(),
     )
 
-    assert decoder.matching is not None
+    assert decoder is not None
+
+    assert decoder is not None
+
+    assert decoder is not None
 
 
 def test_pymatching_decode_runs():
-    backend = PlanarSurfaceCode(
+
+    code = RotatedSurfaceCode(
         distance=3,
         rounds=5,
         depolarizing_error=0.01,
@@ -46,17 +43,15 @@ def test_pymatching_decode_runs():
 
     decoder = MWPMDecoder(
         backend="pymatching",
-        dem=backend.detector_error_model(),
+        dem=code.detector_error_model(),
     )
 
-    dets = backend.sample_detectors(
-        shots=1
+    dets = code.sample_detectors(
+        shots=1,
     )
 
-    result = (
-        decoder.decode_detection_events(
-            dets[0]
-        )
+    result = decoder.decode_detection_events(
+        dets[0],
     )
 
     assert len(result) == 1

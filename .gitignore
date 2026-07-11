@@ -17,3 +17,6 @@ Thumbs.db
 
 # Legacy notebooks
 notebooks/legacy/
+
+# Legacy code
+src/qec/backends/reference

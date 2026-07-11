@@ -9,7 +9,14 @@ PyMatching for Minimum Weight Perfect Matching
 """
 
 from qec.backends.base import Backend
-from qec.backends.stim.rotated_surface_code import RotatedSurfaceCode
+
+from qec.backends.stim.rotated import (
+    RotatedSurfaceCode,
+)
+from qec.backends.stim.unrotated import (
+    UnrotatedSurfaceCode,
+)
+
 from qec.decoders import MWPMDecoder
 
 
@@ -19,9 +26,41 @@ class StimBackend(Backend):
     surface-code simulations.
     """
 
+    def __init__(
+        self,
+        lattice: str = "rotated",
+    ):
+        if lattice not in {
+            "rotated",
+            "unrotated",
+        }:
+            raise ValueError(
+                "lattice must be 'rotated' or 'unrotated'."
+            )
+
+        self.lattice = lattice
+
     @property
     def name(self) -> str:
-        return "stim"
+        return f"stim-{self.lattice}"
+
+    def build_surface_code(
+        self,
+        **kwargs,
+    ):
+        """
+        Construct the requested Stim surface-code
+        implementation.
+        """
+
+        if self.lattice == "rotated":
+            return RotatedSurfaceCode(
+                **kwargs,
+            )
+
+        return UnrotatedSurfaceCode(
+            **kwargs,
+        )
 
     def logical_failure_rate(
         self,
@@ -32,8 +71,11 @@ class StimBackend(Backend):
         readout_error: float = 0.01,
         memory_basis: str = "Z",
     ) -> float:
+        """
+        Estimate the logical failure rate.
+        """
 
-        code = RotatedSurfaceCode(
+        code = self.build_surface_code(
             distance=distance,
             rounds=rounds,
             depolarizing_error=depolarizing_error,
@@ -46,15 +88,24 @@ class StimBackend(Backend):
             dem=code.detector_error_model(),
         )
 
-        dets, obs = code.sample_detectors_and_observables(
-            shots=shots,
+        dets, obs = (
+            code.sample_detectors_and_observables(
+                shots=shots,
+            )
         )
 
         failures = 0
 
-        for det, actual in zip(dets, obs):
+        for det, actual in zip(
+            dets,
+            obs,
+        ):
 
-            predicted = decoder.decode_detection_events(det)
+            predicted = (
+                decoder.decode_detection_events(
+                    det
+                )
+            )
 
             if not (predicted == actual).all():
                 failures += 1

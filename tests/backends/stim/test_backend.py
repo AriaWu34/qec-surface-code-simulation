@@ -1,14 +1,34 @@
+import pytest
+
 from qec.backends.stim import StimBackend
 
 
-def test_backend_name():
-    backend = StimBackend()
+@pytest.mark.parametrize(
+    "lattice",
+    [
+        "rotated",
+        "unrotated",
+    ],
+)
+def test_backend_name(lattice):
+    backend = StimBackend(
+        lattice=lattice,
+    )
 
-    assert backend.name == "stim"
+    assert backend.name == f"stim-{lattice}"
 
 
-def test_backend_logical_failure_rate_runs():
-    backend = StimBackend()
+@pytest.mark.parametrize(
+    "lattice",
+    [
+        "rotated",
+        "unrotated",
+    ],
+)
+def test_logical_failure_rate_runs(lattice):
+    backend = StimBackend(
+        lattice=lattice,
+    )
 
     rate = backend.logical_failure_rate(
         distance=3,
@@ -17,3 +37,10 @@ def test_backend_logical_failure_rate_runs():
     )
 
     assert 0.0 <= rate <= 1.0
+
+
+def test_invalid_lattice():
+    with pytest.raises(ValueError):
+        StimBackend(
+            lattice="foobar",
+        )

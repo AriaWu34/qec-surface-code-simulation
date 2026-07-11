@@ -1,17 +1,22 @@
 """
-Stim backend based on Stim's built-in rotated
-surface-code circuit generator.
+Base class for Stim-generated surface-code circuits.
+
+This module provides the common implementation for Stim's built-in
+surface-code generators. Subclasses specify only the generated-circuit
+task name (e.g. rotated or unrotated).
 """
+
+from abc import ABC, abstractmethod
 
 import stim
 
-from qec.backends.geometry import validate_distance
+from qec.geometry import validate_distance
 
 
-class RotatedSurfaceCode:
+class StimSurfaceCode(ABC):
     """
-    Stim implementation using Stim's built-in
-    rotated surface-code circuit generator.
+    Base class for Stim-generated surface-code
+    memory experiments.
     """
 
     def __init__(
@@ -49,19 +54,18 @@ class RotatedSurfaceCode:
         self.readout_error = readout_error
         self.memory_basis = memory_basis
 
+    @abstractmethod
     def _task_name(self) -> str:
         """
         Return the Stim generated-circuit task.
         """
 
-        if self.memory_basis == "X":
-            return "surface_code:rotated_memory_x"
-
-        return "surface_code:rotated_memory_z"
-
-    def build_circuit(self) -> stim.Circuit:
+    def build_circuit(
+        self,
+    ) -> stim.Circuit:
         """
-        Build a rotated surface-code memory circuit.
+        Build a Stim-generated surface-code
+        memory circuit.
         """
 
         return stim.Circuit.generated(
