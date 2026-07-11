@@ -13,7 +13,7 @@ from qiskit_aer import AerSimulator
 from qec.backends.qiskit.circuit import k_rounds_surface_code
 from qec.backends.qiskit.noise import depol_noise_model
 
-from qec.decoders.MWPM.networkx import (
+from qec.decoders.mwpm.networkx import (
     decode_one_shot,
     decode_spacetime_one_shot,
 )
