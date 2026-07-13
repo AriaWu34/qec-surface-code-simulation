@@ -9,7 +9,7 @@ It supports:
 
 - PyMatching decoding of Stim detector error models.
 - Delegation to the reference NetworkX decoder
-  for legacy simulations.
+  for simulations.
 """
 
 import pymatching

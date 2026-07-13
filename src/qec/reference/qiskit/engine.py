@@ -1,5 +1,5 @@
 """
-Execution engine for the legacy Qiskit backend.
+Execution engine for the Qiskit backend.
 
 Provides Monte Carlo simulation routines based on
 Qiskit Aer and the reference NetworkX decoder.
@@ -10,8 +10,8 @@ import numpy as np
 from qiskit import transpile
 from qiskit_aer import AerSimulator
 
-from qec.backends.qiskit.circuit import k_rounds_surface_code
-from qec.backends.qiskit.noise import depol_noise_model
+from qec.reference.qiskit.circuit import k_rounds_surface_code
+from qec.reference.qiskit.noise import depol_noise_model
 
 from qec.decoders.networkx import (
     decode_one_shot,
@@ -27,8 +27,8 @@ def logical_failure_rates_single(
 ) -> tuple[float, float]:
     """
     Estimate logical X- and Z-failure rates using the
-    legacy Qiskit simulation pipeline with single-round
-    MWPM decoding.
+    Qiskit simulation pipeline with single-round MWPM 
+    decoding.
 
     This routine performs Monte Carlo simulation using
     AerSimulator and the reference NetworkX decoder.
@@ -61,8 +61,7 @@ def logical_failure_rates_spacetime(
 ) -> tuple[float, float]:
     """
     Estimate logical X- and Z-failure rates using the
-    legacy Qiskit simulation pipeline with space-time
-    MWPM decoding.
+    Qiskit simulation pipeline with space-time MWPM decoding.
 
     Multiple rounds of syndrome extraction are decoded
     using the reference NetworkX implementation.
@@ -96,8 +95,8 @@ def compare_single_vs_spacetime(
 ):
     """
     Compare single-round and space-time decoding for
-    the legacy Qiskit simulation pipeline across a
-    range of physical error rates.
+    the Qiskit simulation pipeline across a range of
+    physical error rates.
 
     Returns logical failure rates for both decoding
     strategies to enable benchmarking.

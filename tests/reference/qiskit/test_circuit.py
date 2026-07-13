@@ -1,4 +1,4 @@
-from qec.backends.qiskit.circuit import (
+from qec.reference.qiskit.circuit import (
     one_round_surface_code,
     k_rounds_surface_code,
 )

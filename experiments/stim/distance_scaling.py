@@ -18,7 +18,7 @@ from qec.visualization import (
 
 
 OUTPUT_DIR = Path(
-    "results/distance_scaling"
+    "results/stim/distance_scaling"
 )
 
 

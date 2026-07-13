@@ -14,7 +14,7 @@ from qec.visualization import plot_comparison
 
 
 OUTPUT_DIR = Path(
-    "results/compare_lattices"
+    "results/stim/compare_lattices"
 )
 
 

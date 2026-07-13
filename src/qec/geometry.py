@@ -91,7 +91,7 @@ def validate_distance(distance: int):
 def generate_plaquettes(distance: int):
     """
     Generate all 2×2 plaquettes used by the
-    legacy Qiskit circuit construction.
+    Qiskit circuit construction.
 
     This helper is retained for compatibility with
     the reference Qiskit backend.

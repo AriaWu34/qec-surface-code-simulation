@@ -1,4 +1,4 @@
-from qec.backends.qiskit import QiskitBackend
+from qec.reference.qiskit import QiskitBackend
 
 
 def test_backend_name():
