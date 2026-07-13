@@ -1,10 +1,10 @@
 # Quantum Error Correction Surface Code Benchmarking Framework
 
-A modular quantum error correction (QEC) simulator for studying surface codes through interchangeable simulation backends and decoding algorithms.
+A modular quantum error correction (QEC) framework for studying surface codes through interchangeable simulation backends and decoding algorithms.
 
-The project provides tools for generating surface-code circuits, constructing detector error models (DEMs), performing syndrome decoding, and evaluating logical failure rates through Monte Carlo simulation.
+The framework provides tools for constructing surface-code circuits, generating detector error models (DEMs), performing syndrome decoding, and evaluating logical failure rates through Monte Carlo simulation.
 
-The simulator is designed as a research framework that separates circuit generation, decoding, and analysis, enabling benchmarking between different surface-code implementations and decoder algorithms.
+Designed as a research-oriented software framework, it separates circuit generation, decoding, experimentation, and visualization, enabling reproducible benchmarking of different surface-code implementations.
 
 ---
 
@@ -13,14 +13,16 @@ The simulator is designed as a research framework that separates circuit generat
 - Configurable odd code distances (`d = 3, 5, 7, ...`)
 - Multi-round syndrome extraction
 - Stim-generated **rotated** and **unrotated** surface-code circuits
+- Explicit checkerboard surface-code reference implementation
 - Detector Error Model (DEM) generation
 - Minimum Weight Perfect Matching (MWPM) decoding
-- PyMatching implementation for Stim
-- Reference NetworkX implementation for Qiskit
+- PyMatching decoder for Stim
+- Reference NetworkX decoder
 - Depolarising and readout noise models
 - X- and Z-memory experiments
 - Logical failure-rate simulations
-- Lattice comparison experiments
+- Rotated vs. unrotated lattice comparison
+- Reference implementation validation
 - Modular backend and decoder architecture
 - Comprehensive unit test suite
 
@@ -32,11 +34,6 @@ The simulator is designed as a research framework that separates circuit generat
 src/qec/
 ├── backends/
 │   ├── base.py
-│   ├── qiskit/
-│   │   ├── backend.py
-│   │   ├── circuit.py
-│   │   ├── engine.py
-│   │   └── noise.py
 │   └── stim/
 │       ├── backend.py
 │       ├── base.py
@@ -46,13 +43,28 @@ src/qec/
 ├── decoders/
 │   ├── base.py
 │   ├── mwpm/
-│       ├── pymatching.py
-│       └── networkx.py
+│   │   ├── pymatching.py
+│   │   └── networkx.py
 │   └── syndrome.py
+│
+├── reference/
+│   ├── checkerboard/
+│   │   ├── backend.py
+│   │   ├── checkerboard_surface_code.py
+│   │   ├── circuit.py
+│   │   ├── detectors.py
+│   │   └── helpers.py
+│   │
+│   └── qiskit/
+│       ├── backend.py
+│       ├── circuit.py
+│       ├── engine.py
+│       └── noise.py
 │
 ├── geometry.py
 ├── simulation.py
-└── visualization.py
+├── analysis/
+└── visualization/
 
 experiments/
 results/
@@ -62,37 +74,54 @@ notebooks/
 
 ---
 
-## Simulation Backends
+## Production Backend
 
 ### Stim Backend
 
-The primary backend uses Stim's built-in surface-code circuit generators and supports both:
+The production backend is built on Stim's canonical surface-code circuit generators and supports both:
 
 - Rotated surface code
 - Unrotated surface code
 
 Features include:
 
-- Stim circuit generation
+- Canonical circuit generation
 - Detector Error Model (DEM) construction
 - PyMatching MWPM decoding
 - Fast Monte Carlo logical-memory simulations
 
-This backend is intended for logical error-rate estimation, decoder benchmarking, and threshold studies.
+This backend is used for all benchmarking experiments, including logical failure-rate estimation and future threshold studies.
 
 ---
 
+## Reference Implementations
+
+### Checkerboard Surface Code
+
+The repository includes an explicit first-principles implementation of a checkerboard surface-code memory experiment.
+
+Rather than relying on Stim's built-in generators, it constructs:
+
+- explicit stabilizer circuits,
+- repeated syndrome-extraction rounds,
+- detector events,
+- logical observables,
+- Stim-compatible detector error models.
+
+This implementation serves as an educational reference and validates the framework against Stim's canonical implementation.
+
 ### Qiskit Backend
 
-The Qiskit backend provides a reference implementation using explicit circuit construction and Aer simulation.
+The Qiskit reference backend demonstrates explicit circuit construction using Qiskit and Aer.
 
 It includes:
 
-- Explicit syndrome-extraction circuits
-- Configurable depolarising noise
-- Reference NetworkX MWPM decoder
+- explicit syndrome-extraction circuits,
+- configurable depolarising and readout noise,
+- Aer simulation,
+- reference NetworkX MWPM decoding.
 
-Although significantly slower than the Stim backend, it serves as an educational implementation and reference for comparison.
+Although considerably slower than the Stim backend and based on a simplified circuit model, it illustrates how surface-code circuits can be implemented and simulated using Qiskit.
 
 ---
 
@@ -102,25 +131,18 @@ Current experiments include:
 
 - Logical failure-rate scaling
 - Rotated vs. unrotated lattice comparison
+- Stim vs. checkerboard reference comparison
 
-Additional experiments can be added by combining different backends and decoders.
+The experiment framework is designed to support additional benchmarking studies with different decoders, noise models, and analysis methods.
 
 ---
 
 ## Next Milestone
 
-- Union-Find decoder
-- Decoder benchmarking (MWPM vs. Union-Find)
-
----
-
-## Roadmap
-
-- Implement Union-Find decoder
-- Decoder benchmarking
 - Threshold estimation
-- GitHub Actions CI
-- Expanded documentation and tutorials
+- Runtime benchmarking
+- GitHub Actions continuous integration
+- Expanded documentation
 
 ---
 
