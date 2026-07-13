@@ -2,7 +2,7 @@
 Compare single-round and space-time decoding.
 
 Usage:
-    python experiments/compare_decoders.py
+    python experiments/qiskit_decoder_strategy.py
 """
 
 from qec.reference.qiskit.engine import compare_single_vs_spacetime

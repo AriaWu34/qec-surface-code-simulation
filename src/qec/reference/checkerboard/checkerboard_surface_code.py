@@ -13,6 +13,7 @@ import stim
 
 from qec.geometry import (
     code_sizes,
+    generate_stabilizers,
     validate_distance,
 )
 
@@ -67,7 +68,7 @@ class CheckerboardSurfaceCode(
         self.readout_error = readout_error
 
         self.stabilizers = (
-            generate_planar_stabilizers(
+            generate_stabilizers(
                 distance
             )
         )

@@ -13,11 +13,11 @@ experimentation, validation, and education.
 
 from qec.backends.base import Backend
 
-from .reference_surface_code import CheckerboardSurfaceCode
+from .checkerboard_surface_code import CheckerboardSurfaceCode
 from qec.decoders import MWPMDecoder
 
 
-class ReferenceBackend(Backend):
+class CheckerboardBackend(Backend):
     """
     High-level interface for the explicit reference
     surface-code backend.

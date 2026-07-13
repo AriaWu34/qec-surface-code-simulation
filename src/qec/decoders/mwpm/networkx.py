@@ -13,7 +13,7 @@ from qec.geometry import (
     manhattan,
     code_boundaries,
     code_sizes,
-    generate_qiskit_stabilizers,
+    generate_stabilizers,
 )
 
 from qec.decoders.syndrome import (
@@ -36,7 +36,7 @@ def generate_ancilla_positions(
 
     return [
         stabilizer.ancilla_position
-        for stabilizer in generate_qiskit_stabilizers(
+        for stabilizer in generate_stabilizers(
             distance
         )
     ]

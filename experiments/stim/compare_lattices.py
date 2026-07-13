@@ -10,7 +10,7 @@ from pathlib import Path
 import numpy as np
 
 from qec.backends.stim import StimBackend
-from qec.visualization import plot_comparison
+from qec.visualization import plot_lattice_comparison
 
 
 OUTPUT_DIR = Path(
@@ -97,7 +97,7 @@ def main():
 
                 comparison[lattice] = rates
 
-            plot_comparison(
+            plot_lattice_comparison(
                 x=p_vals,
                 y=comparison,
                 xlabel="Physical error rate",

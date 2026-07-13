@@ -1,5 +1,7 @@
-from .backend import ReferenceBackend
+from .backend import CheckerboardBackend
+from .checkerboard_surface_code import CheckerboardSurfaceCode
 
 __all__ = [
-    "ReferenceBackend",
+    "CheckerboardBackend",
+    "CheckerboardSurfaceCode",
 ]

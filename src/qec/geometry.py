@@ -85,7 +85,7 @@ def validate_distance(distance: int):
 
 
 # ======================================================
-# Qiskit helpers
+# Reference helpers
 # ======================================================
 
 def generate_plaquettes(distance: int):
@@ -188,7 +188,7 @@ class StabilizerGeometry:
         return len(self.data_qubits)
     
 
-def generate_qiskit_stabilizers(
+def generate_stabilizers(
     distance: int,
 ) -> list[StabilizerGeometry]:
     """
