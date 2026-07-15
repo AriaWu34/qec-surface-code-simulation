@@ -9,10 +9,20 @@ from .comparison import (
     plot_backend_comparison,
 )
 
+from .threshold import (
+    plot_threshold,
+)
+
+from .runtime import (
+    plot_runtime_scaling,
+)
+
 __all__ = [
     "plot_logical_failure_rate",
     "plot_distance_scaling",
     "plot_decoder_comparison",
     "plot_lattice_comparison",
     "plot_backend_comparison",
+    "plot_threshold",
+    "plot_runtime_scaling",
 ]

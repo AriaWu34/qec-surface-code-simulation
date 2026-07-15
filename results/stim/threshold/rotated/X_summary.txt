@@ -1,0 +1,9 @@
+Threshold estimation
+--------------------
+Estimated threshold : 0.77%
+Pairwise σ          : 0.09%
+
+Pairwise crossings
+d=3 ↔ d=5 : 0.64%
+d=5 ↔ d=7 : 0.85%
+d=7 ↔ d=9 : 0.83%
