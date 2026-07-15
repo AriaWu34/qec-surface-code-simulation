@@ -43,7 +43,8 @@ def plot_logical_failure_rate(
 
     save_figure(save_path)
 
-    plt.show()
+    plt.close()
+
 
 
 def plot_distance_scaling(
@@ -84,4 +85,4 @@ def plot_distance_scaling(
 
     save_figure(save_path)
 
-    plt.show()
+    plt.close()

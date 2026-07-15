@@ -70,7 +70,7 @@ def plot_decoder_comparison(
 
     save_figure(save_path)
 
-    plt.show()
+    plt.close()
 
 
 def plot_lattice_comparison(
