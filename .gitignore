@@ -22,3 +22,8 @@ notebooks/legacy/
 .coverage
 htmlcov/
 .coverage.*
+
+# Packaging
+*.egg-info/
+build/
+dist/

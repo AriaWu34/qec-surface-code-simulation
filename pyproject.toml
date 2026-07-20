@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "surface-code-benchmark-framework"
+version = "1.0.0"
+description = "A modular framework for benchmarking quantum surface codes."
+readme = "README.md"
+requires-python = ">=3.12"
+
+dependencies = [
+    "numpy>=2.5",
+    "scipy>=1.18",
+    "pandas>=3.0",
+    "matplotlib>=3.11",
+    "networkx>=3.6",
+    "stim>=1.16",
+    "pymatching>=2.4",
+    "qiskit>=2.5",
+    "qiskit-aer>=0.17",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=9.1",
+    "pytest-cov>=7.1",
+]
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = [
+    "--cov=src/qec",
+    "--cov-report=term-missing",
+]
